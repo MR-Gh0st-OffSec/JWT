@@ -1,0 +1,19 @@
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 140-195-910
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2024 21:31:12] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2024 21:31:15] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 140-195-910
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2024 21:31:34] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:root:User 'user1' logged in successfully. Tokens generated.
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2024 21:31:54] "POST /login HTTP/1.1" 200 -
+INFO:root:User 'gh0st' registered successfully
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2024 21:32:02] "[35m[1mPOST /signup HTTP/1.1[0m" 201 -
+INFO:root:User 'gh0st' logged in successfully. Tokens generated.
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2024 21:32:08] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/instructor/Desktop/Development/JWT/backend/app.py', reloading
+INFO:werkzeug: * Restarting with stat
