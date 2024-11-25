@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity, create_refresh_token
 from datetime import timedelta
 import json
+import os
+import logging
 
 app = Flask(__name__)
 
@@ -21,6 +23,18 @@ users = {
 # In-memory store for JWT tokens (representing active sessions per user)
 user_tokens = {}
 
+# Set up logging for activities and logout actions
+log_folder = os.path.join(os.getcwd(), 'logs')
+if not os.path.exists(log_folder):
+    os.makedirs(log_folder)
+
+logging.basicConfig(filename=os.path.join(log_folder, 'activity.logs'), level=logging.INFO)
+
+
+# Function to log activities
+def log_activity(activity):
+    logging.info(activity)
+
 
 # Endpoint for user registration (Sign-up)
 @app.route('/signup', methods=['POST'])
@@ -30,13 +44,13 @@ def signup():
     username = data.get('username')
     password = data.get('password')
 
-
     # Check if username already exists
     if username in users:
         return jsonify({"message": "User already exists"}), 400
 
     # Register the new user with a password and an empty session list
     users[username] = {"password": password, "sessions": []}
+    log_activity(f"User '{username}' registered successfully")
     return jsonify({"message": "User registered successfully"}), 201
 
 
@@ -66,6 +80,8 @@ def login():
     # Add the access token to the user sessions in the user dictionary
     users[username]["sessions"].append({"access_token": access_token, "refresh_token": refresh_token})
 
+    log_activity(f"User '{username}' logged in successfully. Tokens generated.")
+
     return jsonify({
         "message": "Login successful",
         "access_token": access_token,
@@ -83,18 +99,24 @@ def logout():
     token_to_logout = data.get("token")
 
     if token_to_logout is None:
+        log_activity(f"Failed logout attempt for user '{current_user}': No token provided.")
         return jsonify({"message": "No token provided for logout"}), 400
 
     # Find and remove the session from the user's sessions list and the global token store
     sessions = users[current_user]["sessions"]
+    session_found = False
     for session in sessions:
         if session.get("access_token") == token_to_logout:
             sessions.remove(session)  # Remove the session
             user_tokens[current_user] = [session for session in user_tokens[current_user] if
                                          session["access_token"] != token_to_logout]  # Remove from global store
+            session_found = True
+            log_activity(f"User '{current_user}' logged out successfully. Token invalidated.")
             return jsonify({"message": "Logout successful"}), 200
 
-    return jsonify({"message": "Session not found"}), 404
+    if not session_found:
+        log_activity(f"Failed logout attempt for user '{current_user}': Session not found.")
+        return jsonify({"message": "Session not found"}), 404
 
 
 # Endpoint for accessing a protected resource (JWT required)
@@ -122,6 +144,8 @@ def refresh_token():
             session["access_token"] = new_access_token  # Update the access token in session
 
     user_tokens[current_user].append({"access_token": new_access_token, "refresh_token": session["refresh_token"]})
+
+    log_activity(f"User '{current_user}' refreshed their token successfully.")
 
     return jsonify({"message": "Token refreshed", "new_access_token": new_access_token})
 
