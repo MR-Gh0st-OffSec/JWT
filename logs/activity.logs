@@ -8,3 +8,5 @@ INFO:root:User 'gh0st' registered successfully
 INFO:werkzeug:127.0.0.1 - - [25/Nov/2024 21:33:42] "[35m[1mPOST /signup HTTP/1.1[0m" 201 -
 INFO:root:User 'gh0st' logged in successfully. Tokens generated.
 INFO:werkzeug:127.0.0.1 - - [25/Nov/2024 21:33:48] "POST /login HTTP/1.1" 200 -
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 140-195-910
