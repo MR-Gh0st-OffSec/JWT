@@ -21,7 +21,7 @@ If you discover a potential security issue in the **JWT Authentication Project**
 
 ### **Steps to Report**
 1. **Contact Us**  
-   Send an email to our security team at **[security_contact@example.com](mailto:rev3l4infosec@gmail.com)** with the subject line:  
+   Send an email to our security team at **[security@cif.com](mailto:rev3l4infosec@gmail.com)** with the subject line:  
    `[SECURITY ISSUE] - Brief Description`.
 
 2. **Provide Details**  
@@ -85,7 +85,7 @@ We recommend all users of the **JWT Authentication Project** adhere to the follo
 ## Contact Information
 
 If you have any additional questions about our security policy or require further guidance, feel free to reach out:
-- Email: **[security_contact@example.com](mailto:rev3l4infosec@gmail.com)**  
+- Email: **[security@cif.com](mailto:rev3l4infosec@gmail.com)**  
 - GitHub Issues (for non-sensitive reports): [Project Issues Page](https://github.com/MR-Gh0st-OffSec/JWT/issues)
 
 Thank you for helping us make the **JWT Authentication Project** secure for everyone!
